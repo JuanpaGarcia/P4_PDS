@@ -1,0 +1,19 @@
+clear all;
+close all;
+
+%add each signal to an array and frequency variable
+[string1_xn, f1] = audioread('string1m_fs.wav'); 
+[string2_xn, f2] = audioread('string2m_fs.wav');
+[string3_xn, f3] = audioread('string3m_fs.wav');
+[string4_xn, f4] = audioread('string4m_fs.wav');
+[string5_xn, f5] = audioread('string5m_fs.wav');
+
+%optional reproduce de sound
+%sound(string5_xn, f1);
+
+%display singals in time domain
+
+figure;
+t = 0:(1/f1):((1/f1) * (length(string1_xn)-1));
+plot(t,string1_xn);
+title('Histograma de Imagen original');
