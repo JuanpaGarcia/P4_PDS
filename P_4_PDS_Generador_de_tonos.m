@@ -9,7 +9,7 @@ close all;
 [string5_xn, f5] = audioread('string5m_fs.wav');
 
 %optional reproduce de sound
-%sound(string5_xn, f1);
+%sound(string1_xn, f1);
 
 %%
 %display singals in time domain
@@ -52,7 +52,7 @@ positive_signal_1 = positive_wave(string1_xn);
 
 %Código generar la envolvente 
 array_length = 200;
-positive_sorrounding_signal = sorround_signal(positive_signal_1,array_length);
+positive_sorrounding_signal_1 = sorround_signal(positive_signal_1,array_length);
 
 %plot original, positive signal and sorrounding signal
 figure;
@@ -67,7 +67,7 @@ plot(positive_signal_1)
 title('Señal string1m solo positiva');
 
 nexttile
-plot(positive_sorrounding_signal)
+plot(positive_sorrounding_signal_1)
 title('Señal string1m envolvente');
 
 %repetimos el proceso para las demás señales de audio
@@ -131,6 +131,108 @@ title('Señal string5m solo positiva');
 nexttile
 plot(positive_sorrounding_signal_5)
 title('Señal string5m envolvente');
+
+%%
+%Generación de la transformada de fourier de las señales
+number_of_elements_in_fourier_transform = 40000;
+fft_string1_xn = fft(string1_xn,number_of_elements_in_fourier_transform);
+length_string1_xn = length(string1_xn);
+P2 = abs(fft_string1_xn/length_string1_xn);
+P1 = P2(1:length_string1_xn/2+1);
+P1(2:end-1) = 2*P1(2:end-1);
+f = f1 *(0:(length_string1_xn/2))/length_string1_xn;
+
+figure;
+% tiledlayout(2,1);
+% nexttile
+plot(f,P1);
+xlim([0 2500]);
+title('Single-Sided Amplitude Spectrum of string1_xn');
+xlabel('f (Hz)');
+ylabel('|string1_xn(f)|'); 
+
+%comentar lo de la señal envolvente
+
+% fft_string1_sorrounding = fft(positive_sorrounding_signal_1,number_of_elements_in_fourier_transform);
+% length_string1_sorrounding_xn = length(positive_sorrounding_signal_1);
+% P2 = abs(fft_string1_sorrounding/length_string1_sorrounding_xn);
+% P1 = P2(1:length_string1_sorrounding_xn/2+1);
+% P1(2:end-1) = 2*P1(2:end-1);
+% nexttile
+% plot(f,P1);
+% xlim([0 4000]);
+% title('Single-Sided Amplitude Spectrum of string1_envolvente');
+% xlabel('f (Hz)');
+% ylabel('|string1_xn(f)|'); 
+
+%señal 2
+fft_string2_xn = fft(string2_xn,number_of_elements_in_fourier_transform);
+length_string2_xn = length(string2_xn);
+P2 = abs(fft_string2_xn/length_string2_xn);
+P1 = P2(1:length_string2_xn/2+1);
+P1(2:end-1) = 2*P1(2:end-1);
+f = f1 *(0:(length_string2_xn/2))/length_string2_xn;
+
+figure;
+% tiledlayout(2,1);
+% nexttile
+plot(f,P1);
+xlim([0 2500]);
+title('Single-Sided Amplitude Spectrum of string2_xn');
+xlabel('f (Hz)');
+ylabel('|string1_xn(f)|'); 
+
+%señal 3
+fft_string3_xn = fft(string3_xn,number_of_elements_in_fourier_transform);
+length_string3_xn = length(string3_xn);
+P2 = abs(fft_string3_xn/length_string3_xn);
+P1 = P2(1:length_string3_xn/2+1);
+P1(2:end-1) = 2*P1(2:end-1);
+f = f1 *(0:(length_string3_xn/2))/length_string3_xn;
+
+figure;
+% tiledlayout(2,1);
+% nexttile
+plot(f,P1);
+xlim([0 2500]);
+title('Single-Sided Amplitude Spectrum of string3_xn');
+xlabel('f (Hz)');
+ylabel('|string1_xn(f)|'); 
+
+%señal 4
+fft_string4_xn = fft(string4_xn,number_of_elements_in_fourier_transform);
+length_string4_xn = length(string4_xn);
+P2 = abs(fft_string4_xn/length_string4_xn);
+P1 = P2(1:length_string4_xn/2+1);
+P1(2:end-1) = 2*P1(2:end-1);
+f = f1 *(0:(length_string4_xn/2))/length_string4_xn;
+
+figure;
+% tiledlayout(2,1);
+% nexttile
+plot(f,P1);
+xlim([0 2500]);
+title('Single-Sided Amplitude Spectrum of string4_xn');
+xlabel('f (Hz)');
+ylabel('|string1_xn(f)|');
+
+%señal 5
+fft_string5_xn = fft(string5_xn,number_of_elements_in_fourier_transform);
+length_string5_xn = length(string5_xn);
+P2 = abs(fft_string5_xn/length_string5_xn);
+P1 = P2(1:length_string5_xn/2+1);
+P1(2:end-1) = 2*P1(2:end-1);
+f = f1 *(0:(length_string5_xn/2))/length_string5_xn;
+
+figure;
+% tiledlayout(2,1);
+% nexttile
+plot(f,P1);
+xlim([0 2500]);
+title('Single-Sided Amplitude Spectrum of string5_xn');
+xlabel('f (Hz)');
+ylabel('|string1_xn(f)|');
+%%
  
  function y = positive_wave(x_n_signal)
     counter = 1;
@@ -144,7 +246,6 @@ title('Señal string5m envolvente');
 
  function y = sorround_signal(x_n_signal,number_of_elements_in_sorrounding_signal)
  %la generamos con un promedio de ciertas muestras tomadas en un intervalo
- 
  counter = 1;
      for s=1 : number_of_elements_in_sorrounding_signal
      data_hold=0;
