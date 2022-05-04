@@ -233,6 +233,46 @@ title('Single-Sided Amplitude Spectrum of string5_xn');
 xlabel('f (Hz)');
 ylabel('|string1_xn(f)|');
 %%
+%Generación de espectrograma
+no_pieces_s = 2000;
+DFT_dots = 10000;
+%Señal 1
+figure;
+spectrogram(string1_xn,no_pieces_s,0,DFT_dots,f1, 'yaxis');
+title('Espectrograma de la señal string1_xn');
+ ylim([0 4])
+%Señal 2
+figure;
+spectrogram(string2_xn,no_pieces_s,0,DFT_dots,f2, 'yaxis');
+title('Espectrograma de la señal string2_xn');
+ ylim([0 4])
+%Señal 3
+figure;
+spectrogram(string3_xn,no_pieces_s,0,DFT_dots,f3, 'yaxis');
+ ylim([0 4])
+title('Espectrograma de la señal string3_xn');
+%Señal 4
+figure;
+spectrogram(string4_xn,no_pieces_s,0,DFT_dots,f4, 'yaxis');
+ ylim([0 4])
+title('Espectrograma de la señal string4_xn');
+%Señal 5
+figure;
+spectrogram(string5_xn,no_pieces_s,0,DFT_dots,f5, 'yaxis');
+ ylim([0 4])
+title('Espectrograma de la señal string5_xn');
+%%
+%Generación de la onda en matlab
+% Para la primera onda 
+%vector de tiempo de la longitud del tamaño de la señal
+t = 0:(1/f1):((1/f1) * (length(string1_xn)-1)); 
+%Usar 6 ondas senoidales de frecuecuencias
+%fundamental 148.29
+%armonicos 73.9609,222.44,445,519.58,594.103
+
+generated_s1 = sin(2*pi*148.29*t) + 0.678361*sin(2*pi*73.9609*t) + 0.678361*sin(2*pi*222*t) +sin(2*pi*519.58*t) + sin(2*pi*594.103*t) + sin(2*pi*445*t);
+
+%%
  
  function y = positive_wave(x_n_signal)
     counter = 1;

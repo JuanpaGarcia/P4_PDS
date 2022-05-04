@@ -143,27 +143,134 @@ P1(2:end-1) = 2*P1(2:end-1);
 f = f1 *(0:(length_string1_xn/2))/length_string1_xn;
 
 figure;
-tiledlayout(2,1);
-nexttile
+% tiledlayout(2,1);
+% nexttile
 plot(f,P1);
-xlim([0 4000]);
+xlim([0 2500]);
 title('Single-Sided Amplitude Spectrum of string1_xn');
 xlabel('f (Hz)');
 ylabel('|string1_xn(f)|'); 
 
-fft_string1_sorrounding = fft(positive_sorrounding_signal_1,number_of_elements_in_fourier_transform);
-length_string1_sorrounding_xn = length(string1_xn);
-P2 = abs(fft_string1_xn/length_string1_xn);
-P1 = P2(1:length_string1_xn/2+1);
+%comentar lo de la señal envolvente
+
+% fft_string1_sorrounding = fft(positive_sorrounding_signal_1,number_of_elements_in_fourier_transform);
+% length_string1_sorrounding_xn = length(positive_sorrounding_signal_1);
+% P2 = abs(fft_string1_sorrounding/length_string1_sorrounding_xn);
+% P1 = P2(1:length_string1_sorrounding_xn/2+1);
+% P1(2:end-1) = 2*P1(2:end-1);
+% nexttile
+% plot(f,P1);
+% xlim([0 4000]);
+% title('Single-Sided Amplitude Spectrum of string1_envolvente');
+% xlabel('f (Hz)');
+% ylabel('|string1_xn(f)|'); 
+
+%señal 2
+fft_string2_xn = fft(string2_xn,number_of_elements_in_fourier_transform);
+length_string2_xn = length(string2_xn);
+P2 = abs(fft_string2_xn/length_string2_xn);
+P1 = P2(1:length_string2_xn/2+1);
 P1(2:end-1) = 2*P1(2:end-1);
-nexttile
+f = f1 *(0:(length_string2_xn/2))/length_string2_xn;
+
+figure;
+% tiledlayout(2,1);
+% nexttile
 plot(f,P1);
-xlim([0 4000]);
-title('Single-Sided Amplitude Spectrum of string1_xn');
+xlim([0 2500]);
+title('Single-Sided Amplitude Spectrum of string2_xn');
 xlabel('f (Hz)');
 ylabel('|string1_xn(f)|'); 
 
+%señal 3
+fft_string3_xn = fft(string3_xn,number_of_elements_in_fourier_transform);
+length_string3_xn = length(string3_xn);
+P2 = abs(fft_string3_xn/length_string3_xn);
+P1 = P2(1:length_string3_xn/2+1);
+P1(2:end-1) = 2*P1(2:end-1);
+f = f1 *(0:(length_string3_xn/2))/length_string3_xn;
 
+figure;
+% tiledlayout(2,1);
+% nexttile
+plot(f,P1);
+xlim([0 2500]);
+title('Single-Sided Amplitude Spectrum of string3_xn');
+xlabel('f (Hz)');
+ylabel('|string1_xn(f)|'); 
+
+%señal 4
+fft_string4_xn = fft(string4_xn,number_of_elements_in_fourier_transform);
+length_string4_xn = length(string4_xn);
+P2 = abs(fft_string4_xn/length_string4_xn);
+P1 = P2(1:length_string4_xn/2+1);
+P1(2:end-1) = 2*P1(2:end-1);
+f = f1 *(0:(length_string4_xn/2))/length_string4_xn;
+
+figure;
+% tiledlayout(2,1);
+% nexttile
+plot(f,P1);
+xlim([0 2500]);
+title('Single-Sided Amplitude Spectrum of string4_xn');
+xlabel('f (Hz)');
+ylabel('|string1_xn(f)|');
+
+%señal 5
+fft_string5_xn = fft(string5_xn,number_of_elements_in_fourier_transform);
+length_string5_xn = length(string5_xn);
+P2 = abs(fft_string5_xn/length_string5_xn);
+P1 = P2(1:length_string5_xn/2+1);
+P1(2:end-1) = 2*P1(2:end-1);
+f = f1 *(0:(length_string5_xn/2))/length_string5_xn;
+
+figure;
+% tiledlayout(2,1);
+% nexttile
+plot(f,P1);
+xlim([0 2500]);
+title('Single-Sided Amplitude Spectrum of string5_xn');
+xlabel('f (Hz)');
+ylabel('|string1_xn(f)|');
+%%
+%Generación de espectrograma
+no_pieces_s = 2000;
+DFT_dots = 10000;
+%Señal 1
+figure;
+spectrogram(string1_xn,no_pieces_s,0,DFT_dots,f1, 'yaxis');
+title('Espectrograma de la señal string1_xn');
+ ylim([0 4])
+%Señal 2
+figure;
+spectrogram(string2_xn,no_pieces_s,0,DFT_dots,f2, 'yaxis');
+title('Espectrograma de la señal string2_xn');
+ ylim([0 4])
+%Señal 3
+figure;
+spectrogram(string3_xn,no_pieces_s,0,DFT_dots,f3, 'yaxis');
+ ylim([0 4])
+title('Espectrograma de la señal string3_xn');
+%Señal 4
+figure;
+spectrogram(string4_xn,no_pieces_s,0,DFT_dots,f4, 'yaxis');
+ ylim([0 4])
+title('Espectrograma de la señal string4_xn');
+%Señal 5
+figure;
+spectrogram(string5_xn,no_pieces_s,0,DFT_dots,f5, 'yaxis');
+ ylim([0 4])
+title('Espectrograma de la señal string5_xn');
+%%
+%Generación de la onda en matlab
+% Para la primera onda 
+%vector de tiempo de la longitud del tamaño de la señal
+t = 0:(1/f1):((1/f1) * (length(string1_xn)-1)); 
+%Usar 6 ondas senoidales de frecuecuencias
+%fundamental 148.29
+%armonicos 73.9609,222.44,445,519.58,594.103
+
+generated_s1 = sin(2*pi*148.29*t) + 0.678361*sin(2*pi*73.9609*t) + 0.678361*sin(2*pi*222*t) +sin(2*pi*519.58*t) + sin(2*pi*594.103*t) + sin(2*pi*445*t);
 
 %%
  
