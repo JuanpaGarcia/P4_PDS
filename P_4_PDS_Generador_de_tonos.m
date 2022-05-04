@@ -47,39 +47,112 @@ close all;
 %%Parte de Abstraer una serie de puntos de un alto valor en la señal
 
 
- %%tomar solo los valores positivos de la señal 
- counter = 1;
- for s=1 : (length(string1_xn)-1)
-     if(string1_xn(s) > 0)
-         positive_signal(counter) = string1_xn(s);
-         counter = counter + 1;
-     end
- end
- %Graficar la parte positiva de nuestra señal
- figure;
- plot(positive_signal);
- title('Señal string1m solo positiva');
+%%tomar solo los valores positivos de la señal con nuestra función
+positive_signal_1 = positive_wave(string1_xn);
 
 %Código generar la envolvente 
-%la generamos con un promedio de ciertas muestras tomadas en un intervalo
+array_length = 200;
+positive_sorrounding_signal = sorround_signal(positive_signal_1,array_length);
 
-positive_sorrounding_signal=0;
-counter = 1;
-sub_cycle = 1;
+%plot original, positive signal and sorrounding signal
+figure;
+tiledlayout(3,1);
+nexttile
+t = 0:(1/f1):((1/f1) * (length(string1_xn)-1));
+plot(t,string1_xn)
+title('Señal string1m en el tiempo');
 
-number_of_elements_in_sorrounding_signal = 200; %variando este parametro nos acercamos más o menos a una señal continua 
+nexttile
+plot(positive_signal_1)
+title('Señal string1m solo positiva');
 
- for s=1 : number_of_elements_in_sorrounding_signal
+nexttile
+plot(positive_sorrounding_signal)
+title('Señal string1m envolvente');
+
+%repetimos el proceso para las demás señales de audio
+ 
+positive_signal_2 = positive_wave(string2_xn);
+positive_sorrounding_signal_2 = sorround_signal(positive_signal_2,array_length);
+figure;
+tiledlayout(3,1);
+nexttile
+t = 0:(1/f1):((1/f1) * (length(string2_xn)-1));
+plot(t,string2_xn)
+title('Señal string2m en el tiempo');
+nexttile
+plot(positive_signal_2)
+title('Señal string2m solo positiva');
+nexttile
+plot(positive_sorrounding_signal_2)
+title('Señal string2m envolvente');
+
+positive_signal_3 = positive_wave(string3_xn);
+positive_sorrounding_signal_3 = sorround_signal(positive_signal_3,array_length);
+figure;
+tiledlayout(3,1);
+nexttile
+t = 0:(1/f1):((1/f1) * (length(string3_xn)-1));
+plot(t,string3_xn)
+title('Señal string3m en el tiempo');
+nexttile
+plot(positive_signal_3)
+title('Señal string3m solo positiva');
+nexttile
+plot(positive_sorrounding_signal_3)
+title('Señal string3m envolvente');
+
+positive_signal_4 = positive_wave(string4_xn);
+positive_sorrounding_signal_4 = sorround_signal(positive_signal_4,array_length);
+figure;
+tiledlayout(3,1);
+nexttile
+t = 0:(1/f1):((1/f1) * (length(string4_xn)-1));
+plot(t,string4_xn)
+title('Señal string4m en el tiempo');
+nexttile
+plot(positive_signal_4)
+title('Señal string4m solo positiva');
+nexttile
+plot(positive_sorrounding_signal_4)
+title('Señal string4m envolvente');
+
+positive_signal_5 = positive_wave(string5_xn);
+positive_sorrounding_signal_5 = sorround_signal(positive_signal_5,array_length);
+figure;
+tiledlayout(3,1);
+nexttile
+t = 0:(1/f1):((1/f1) * (length(string5_xn)-1));
+plot(t,string5_xn)
+title('Señal string5m en el tiempo');
+nexttile
+plot(positive_signal_5)
+title('Señal string5m solo positiva');
+nexttile
+plot(positive_sorrounding_signal_5)
+title('Señal string5m envolvente');
+ 
+ function y = positive_wave(x_n_signal)
+    counter = 1;
+     for s=1 : (length(x_n_signal)-1)
+         if(x_n_signal(s) > 0)
+            y(counter) = x_n_signal(s);
+            counter = counter + 1;
+        end
+    end
+ end
+
+ function y = sorround_signal(x_n_signal,number_of_elements_in_sorrounding_signal)
+ %la generamos con un promedio de ciertas muestras tomadas en un intervalo
+ 
+ counter = 1;
+     for s=1 : number_of_elements_in_sorrounding_signal
      data_hold=0;
-       for sub_cycle=1 : ((length(positive_signal)-1)/number_of_elements_in_sorrounding_signal)
-           data_hold = data_hold + positive_signal(counter);
+       for sub_cycle=1 : ((length(x_n_signal)-1)/number_of_elements_in_sorrounding_signal)
+           data_hold = data_hold + x_n_signal(counter);
            counter = counter + 1;
        end
-       positive_sorrounding_signal(s) = data_hold/((length(positive_signal)-1)/number_of_elements_in_sorrounding_signal);
+       y(s) = data_hold/((length(x_n_signal)-1)/number_of_elements_in_sorrounding_signal);
+    end
  end
- 
- figure;
- plot(positive_sorrounding_signal);
- title('Señal como linea continua o envolvente');
-
 
