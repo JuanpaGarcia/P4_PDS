@@ -51,7 +51,7 @@ close all;
 positive_signal_1 = positive_wave(string1_xn);
 
 %Código generar la envolvente 
-array_length = 200;
+array_length = 1000;
 positive_sorrounding_signal_1 = sorround_signal(positive_signal_1,array_length);
 
 %plot original, positive signal and sorrounding signal
@@ -265,12 +265,24 @@ title('Espectrograma de la señal string5_xn');
 %Generación de la onda en matlab
 % Para la primera onda 
 %vector de tiempo de la longitud del tamaño de la señal
-t = 0:(1/f1):((1/f1) * (length(string1_xn)-1)); 
+f_cuerda = 1e3;
+t = 0:(1/f_cuerda):((1/f_cuerda) * 5000); 
 %Usar 6 ondas senoidales de frecuecuencias
 %fundamental 148.29
 %armonicos 73.9609,222.44,445,519.58,594.103
 
-generated_s1 = sin(2*pi*148.29*t) + 0.678361*sin(2*pi*73.9609*t) + 0.678361*sin(2*pi*222*t) +sin(2*pi*519.58*t) + sin(2*pi*594.103*t) + sin(2*pi*445*t);
+
+%f = signal_filler (positive_sorrounding_signal_1, length(t));  
+
+generated_s1 = sin(2*pi*148.29*t) + 0.678361*sin(2*pi*73.9609*t) + 0.2250187269*sin(2*pi*222*t) + 0.1068021*sin(2*pi*519.58*t) + 0.10404168*sin(2*pi*594.103*t) + 0.1122066*sin(2*pi*445*t);
+
+
+
+figure;
+plot(envolvente_i)
+title('intento señal con mas elementos ');
+
+
 
 %%
  
@@ -297,3 +309,34 @@ generated_s1 = sin(2*pi*148.29*t) + 0.678361*sin(2*pi*73.9609*t) + 0.678361*sin(
     end
  end
 
+ function y = signal_filler(x_n_signal, final_dots)
+%     counter = 1;
+%     y = zeros(1,final_dots);
+%     extra_dots = final_dots/length(x_n_signal);
+%     extra_dots_per_cycle = fix(extra_dots);
+%     for s=1 : (length(x_n_signal)-1)
+%         step = (x_n_signal(s) - x_n_signal(s+1))/extra_dots_per_cycle;
+%         for a=0 : extra_dots_per_cycle
+%             y(counter) =  x_n_signal(s) + a*step;
+%             counter = counter + 1;
+%         end
+%     end
+    %using fourier series 
+     K = 100;
+     s=0;
+     for n =1 : k
+          s = (2/(n*pi)) * (1 -(-1)^n).*sin(n*t) 
+     end
+
+    
+ end
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
