@@ -270,7 +270,11 @@ t = 0:(1/f1):((1/f1) * (length(string1_xn)-1));
 %fundamental 148.29
 %armonicos 73.9609,222.44,445,519.58,594.103
 
-generated_s1 = sin(2*pi*148.29*t) + 0.678361*sin(2*pi*73.9609*t) + 0.678361*sin(2*pi*222*t) +sin(2*pi*519.58*t) + sin(2*pi*594.103*t) + sin(2*pi*445*t);
+generated_s1 = sin(2*pi*148.29*t) + 0.678361*sin(2*pi*73.9609*t) + 0.2250187269*sin(2*pi*222*t) + 0.1068021*sin(2*pi*519.58*t) + 0.10404168*sin(2*pi*594.103*t) + 0.1122066*sin(2*pi*445*t);
+positive_sorrounding_signal_1 = sorround_signal(positive_signal_1, 27458);    
+figure;
+plot(positive_sorrounding_signal_1)
+title('intento señal salida');
 
 %%
  
