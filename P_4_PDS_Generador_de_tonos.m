@@ -51,7 +51,7 @@ title('Señal string5m en el tiempo');
 positive_signal_1 = positive_wave(string1_xn);
 
 %Código generar la envolvente 
-array_length = 200;
+array_length = 400;
 positive_sorrounding_signal_1 = sorround_signal(positive_signal_1,array_length);
 
 %plot original, positive signal and sorrounding signal
@@ -274,8 +274,8 @@ title('Espectrograma de la señal string5_xn');
 generated_s1 = sin(2*pi*148.29*t1) + 0.678361*sin(2*pi*73.9609*t1) + 0.2250187269*sin(2*pi*222*t1) + 0.1068021*sin(2*pi*519.58*t1) + 0.10404168*sin(2*pi*594.103*t1) + 0.1122066*sin(2*pi*445*t1);
 
 %generar la envolvente por interpolar
-f = 200/((1/f1) * (length(string1_xn)-1));
-t_sorround = 0:1/f: ( (1/f)* 199 );
+f = array_length/((1/f1) * (length(string1_xn)-1));
+t_sorround = 0:1/f: ( (1/f)* (array_length-1) );
 new_sorrounding = interp1(t_sorround,positive_sorrounding_signal_1,t1);
 
 figure;
