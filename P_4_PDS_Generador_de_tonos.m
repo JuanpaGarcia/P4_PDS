@@ -51,7 +51,7 @@ title('Señal string5m en el tiempo');
 positive_signal_1 = positive_wave(string1_xn);
 
 %Código generar la envolvente 
-array_length = 400;
+array_length = 250;
 positive_sorrounding_signal_1 = sorround_signal(positive_signal_1,array_length);
 
 %plot original, positive signal and sorrounding signal
@@ -284,6 +284,10 @@ title('Sorroundingg signal new');
 %generar tono de guitarra
 tono1 = new_sorrounding .* generated_s1;
 
+figure;
+plot(t1,tono1);
+title('Generated Signal 1');
+
 
 %%
  
@@ -309,6 +313,23 @@ tono1 = new_sorrounding .* generated_s1;
        y(s) = data_hold/((length(x_n_signal)-1)/number_of_elements_in_sorrounding_signal);
     end
  end
+
+%   function y = sorround_signal(x_n_signal,number_of_elements_in_sorrounding_signal)
+%  %la generamos con un promedio de ciertas muestras tomadas en un intervalo
+%  counter = 1;
+%      for s=1 : number_of_elements_in_sorrounding_signal
+%      data_hold=0;
+%        for sub_cycle=1 : ((length(x_n_signal)-1)/number_of_elements_in_sorrounding_signal)
+%            a = max(x_n_signal(counter));
+%            if a > data_hold
+%                data_hold = a;
+%            end
+%            data_hold = data_hold + x_n_signal(counter);
+%            counter = counter + 1;
+%        end
+%        y(s) = data_hold;
+%     end
+%  end
 
 
  
