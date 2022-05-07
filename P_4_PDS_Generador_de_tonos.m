@@ -13,36 +13,36 @@ close all;
 
 %%
 %display singals in time domain
-% 
-% figure;
-% t = 0:(1/f1):((1/f1) * (length(string1_xn)-1));
-% plot(t,string1_xn);
-% xlim([0 ((1/f1) *length(string1_xn))]);
-% title('Señal string1m en el tiempo');
-% 
-% figure;
-% t = 0:(1/f2):((1/f2) * (length(string2_xn)-1));
-% plot(t,string2_xn);
-% xlim([0 ((1/f2) *length(string2_xn))]);
-% title('Señal string2m en el tiempo');
-% 
-% figure;
-% t = 0:(1/f3):((1/f3) * (length(string3_xn)-1));
-% plot(t,string3_xn);
-% xlim([0 ((1/f3) *length(string3_xn))]);
-% title('Señal string3m en el tiempo');
-% 
-% figure;
-% t = 0:(1/f4):((1/f4) * (length(string4_xn)-1));
-% plot(t,string4_xn);
-% xlim([0 ((1/f4) *length(string4_xn))]);
-% title('Señal string4m en el tiempo');
-% 
-% figure;
-% t = 0:(1/f5):((1/f5) * (length(string5_xn)-1));
-% plot(t,string5_xn);
-% xlim([0 ((1/f5) *length(string5_xn))]);
-% title('Señal string5m en el tiempo');
+
+figure;
+t1 = 0:(1/f1):((1/f1) * (length(string1_xn)-1));
+plot(t1,string1_xn);
+xlim([0 ((1/f1) *length(string1_xn))]);
+title('Señal string1m en el tiempo');
+
+figure;
+t2 = 0:(1/f2):((1/f2) * (length(string2_xn)-1));
+plot(t2,string2_xn);
+xlim([0 ((1/f2) *length(string2_xn))]);
+title('Señal string2m en el tiempo');
+
+figure;
+t3 = 0:(1/f3):((1/f3) * (length(string3_xn)-1));
+plot(t3,string3_xn);
+xlim([0 ((1/f3) *length(string3_xn))]);
+title('Señal string3m en el tiempo');
+
+figure;
+t4 = 0:(1/f4):((1/f4) * (length(string4_xn)-1));
+plot(t4,string4_xn);
+xlim([0 ((1/f4) *length(string4_xn))]);
+title('Señal string4m en el tiempo');
+
+figure;
+t5 = 0:(1/f5):((1/f5) * (length(string5_xn)-1));
+plot(t5,string5_xn);
+xlim([0 ((1/f5) *length(string5_xn))]);
+title('Señal string5m en el tiempo');
 %%
 %%Parte de Abstraer una serie de puntos de un alto valor en la señal
 
@@ -51,15 +51,15 @@ close all;
 positive_signal_1 = positive_wave(string1_xn);
 
 %Código generar la envolvente 
-array_length = 5000;
+array_length = 200;
 positive_sorrounding_signal_1 = sorround_signal(positive_signal_1,array_length);
 
 %plot original, positive signal and sorrounding signal
 figure;
 tiledlayout(3,1);
 nexttile
-t = 0:(1/f1):((1/f1) * (length(string1_xn)-1));
-plot(t,string1_xn)
+
+plot(t1,string1_xn)
 title('Señal string1m en el tiempo');
 
 nexttile
@@ -77,8 +77,8 @@ positive_sorrounding_signal_2 = sorround_signal(positive_signal_2,array_length);
 figure;
 tiledlayout(3,1);
 nexttile
-t = 0:(1/f1):((1/f1) * (length(string2_xn)-1));
-plot(t,string2_xn)
+
+plot(t2,string2_xn)
 title('Señal string2m en el tiempo');
 nexttile
 plot(positive_signal_2)
@@ -92,8 +92,8 @@ positive_sorrounding_signal_3 = sorround_signal(positive_signal_3,array_length);
 figure;
 tiledlayout(3,1);
 nexttile
-t = 0:(1/f1):((1/f1) * (length(string3_xn)-1));
-plot(t,string3_xn)
+
+plot(t3,string3_xn)
 title('Señal string3m en el tiempo');
 nexttile
 plot(positive_signal_3)
@@ -107,8 +107,8 @@ positive_sorrounding_signal_4 = sorround_signal(positive_signal_4,array_length);
 figure;
 tiledlayout(3,1);
 nexttile
-t = 0:(1/f1):((1/f1) * (length(string4_xn)-1));
-plot(t,string4_xn)
+
+plot(t4,string4_xn)
 title('Señal string4m en el tiempo');
 nexttile
 plot(positive_signal_4)
@@ -122,8 +122,8 @@ positive_sorrounding_signal_5 = sorround_signal(positive_signal_5,array_length);
 figure;
 tiledlayout(3,1);
 nexttile
-t = 0:(1/f1):((1/f1) * (length(string5_xn)-1));
-plot(t,string5_xn)
+
+plot(t5,string5_xn)
 title('Señal string5m en el tiempo');
 nexttile
 plot(positive_signal_5)
@@ -265,19 +265,24 @@ title('Espectrograma de la señal string5_xn');
 %Generación de la onda en matlab
 % Para la primera onda 
 %vector de tiempo de la longitud del tamaño de la señal
-f_cuerda = 1e3;
-t = 0:(1/f_cuerda):((1/f_cuerda)*4999); 
+
+
 %Usar 6 ondas senoidales de frecuecuencias
 %fundamental 148.29
 %armonicos 73.9609,222.44,445,519.58,594.103
-generated_s1 = sin(2*pi*148.29*t) + 0.678361*sin(2*pi*73.9609*t) + 0.2250187269*sin(2*pi*222*t) + 0.1068021*sin(2*pi*519.58*t) + 0.10404168*sin(2*pi*594.103*t) + 0.1122066*sin(2*pi*445*t);
-g = positive_sorrounding_signal_1 .* generated_s1;
+
+generated_s1 = sin(2*pi*148.29*t1) + 0.678361*sin(2*pi*73.9609*t1) + 0.2250187269*sin(2*pi*222*t1) + 0.1068021*sin(2*pi*519.58*t1) + 0.10404168*sin(2*pi*594.103*t1) + 0.1122066*sin(2*pi*445*t1);
+
+%generar la envolvente por interpolar
+f = 200/((1/f1) * (length(string1_xn)-1));
+t_sorround = 0:1/f: ( (1/f)* 199 );
+new_sorrounding = interp1(t_sorround,positive_sorrounding_signal_1,t1);
 
 figure;
-plot(g)
-title('intento señal');
-
-
+plot(t1,new_sorrounding);
+title('Sorroundingg signal new');
+%generar tono de guitarra
+tono1 = new_sorrounding .* generated_s1;
 
 
 %%
@@ -305,27 +310,7 @@ title('intento señal');
     end
  end
 
- function y = signal_filler(x_n_signal, final_dots)
-%     counter = 1;
-%     y = zeros(1,final_dots);
-%     extra_dots = final_dots/length(x_n_signal);
-%     extra_dots_per_cycle = fix(extra_dots);
-%     for s=1 : (length(x_n_signal)-1)
-%         step = (x_n_signal(s) - x_n_signal(s+1))/extra_dots_per_cycle;
-%         for a=0 : extra_dots_per_cycle
-%             y(counter) =  x_n_signal(s) + a*step;
-%             counter = counter + 1;
-%         end
-%     end
-    %using fourier series 
-     K = 100;
-     s=0;
-     for n =1 : k
-          s = (2/(n*pi)) * (1 -(-1)^n).*sin(n*t) 
-     end
 
-    
- end
  
  
  
