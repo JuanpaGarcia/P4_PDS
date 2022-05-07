@@ -263,31 +263,79 @@ spectrogram(string5_xn,no_pieces_s,0,DFT_dots,f5, 'yaxis');
 title('Espectrograma de la señal string5_xn');
 %%
 %Generación de la onda en matlab
+
 % Para la primera onda 
-%vector de tiempo de la longitud del tamaño de la señal
-
-
 %Usar 6 ondas senoidales de frecuecuencias
 %fundamental 148.29
 %armonicos 73.9609,222.44,445,519.58,594.103
 
-generated_s1 = sin(2*pi*148.29*t1) + 0.678361*sin(2*pi*73.9609*t1) + 0.2250187269*sin(2*pi*222*t1) + 0.1068021*sin(2*pi*519.58*t1) + 0.10404168*sin(2*pi*594.103*t1) + 0.1122066*sin(2*pi*445*t1);
+generated_s1 = sin(2*pi*148.29*t1) + 0.678361*sin(2*pi*73.9609*t1) + 0.2250187269*sin(2*pi*222*t1); 
+generated_s1 = generated_s1+ 0.1068021*sin(2*pi*519.58*t1) + 0.10404168*sin(2*pi*594.103*t1); 
+generated_s1 = generated_s1 + 0.1122066*sin(2*pi*445*t1);
 
 %generar la envolvente por interpolar
 f = array_length/((1/f1) * (length(string1_xn)-1));
 t_sorround = 0:1/f: ( (1/f)* (array_length-1) );
-new_sorrounding = interp1(t_sorround,positive_sorrounding_signal_1,t1);
+
+new_sorrounding_1 = interp1(t_sorround,positive_sorrounding_signal_1,t1);
 
 figure;
-plot(t1,new_sorrounding);
+plot(t1,new_sorrounding_1);
 title('Sorroundingg signal new');
 %generar tono de guitarra
-tono1 = new_sorrounding .* generated_s1;
+tono1 = new_sorrounding_1 .* generated_s1;
 
 figure;
 plot(t1,tono1);
 title('Generated Signal 1');
 
+% Para la segunda onda 
+%Usar 6 ondas senoidales de frecuecuencias
+
+generated_s2 = sin(2*pi*184.203*t2) + 0.324008208*sin(2*pi*368.611*t2) + 0.551646451*sin(2*pi*553.02*t2);
+generated_s2 = generated_s2 + 0.4082825389*sin(2*pi*737*t2) + 0.061063432*sin(2*pi*992.043*t2) ;
+generated_s2 = generated_s2 + 0.44251823*sin(2*pi*1106.66*t2) + 0.441064165*sin(2*pi*1291.68*t2) ;
+generated_s2 = generated_s2 + 0.754699695*sin(2*pi*1476.71*t2) + 0.505166917*sin(2*pi*1662.15*t2); 
+generated_s2 = generated_s2 + 0.236297409*sin(2*pi*2219.28*t2);
+%generar la envolvente por interpolar
+f = array_length/((1/f2) * (length(string2_xn)-1));
+t_sorround = 0:1/f: ( (1/f)* (array_length-1) );
+
+new_sorrounding_2 = interp1(t_sorround,positive_sorrounding_signal_2,t2);
+
+figure;
+plot(t2,new_sorrounding_2);
+title('Sorroundingg signal 2 new');
+%generar tono de guitarra
+tono2 = new_sorrounding_2 .* generated_s2;
+
+figure;
+plot(t2,tono2);
+title('Generated Signal 2');
+
+% Para la tercera onda 
+%Usar 6 ondas senoidales de frecuecuencias
+
+generated_s3 = sin(2*pi*134.553*t3) + 0.568135947*sin(2*pi*269.106*t3) + 0.509614153*sin(2*pi*404.038*t3); 
+generated_s3 = generated_s3 + 0.473060678*sin(2*pi*809.402*t3) + 0.225704201*sin(2*pi*945.092*t3) ;
+generated_s3 = generated_s3 + 0.220656893*sin(2*pi*1081.35*t3) + 0.339939843*sin(2*pi*1217.99*t3) ;
+generated_s3 = generated_s3 + 0.315972393*sin(2*pi*1492.02*t3) + 0.135849521*sin(2*pi*2186.96*t3) ;
+generated_s3 = generated_s3 + 0.155626224*sin(2*pi*2328.9*t3);
+%generar la envolvente por interpolar
+f = array_length/((1/f3) * (length(string3_xn)-1));
+t_sorround = 0:1/f: ( (1/f)* (array_length-1) );
+
+new_sorrounding_3 = interp1(t_sorround,positive_sorrounding_signal_3,t3);
+
+figure;
+plot(t3,new_sorrounding_3);
+title('Sorroundingg signal 3 new');
+%generar tono de guitarra
+tono3 = new_sorrounding_3 .* generated_s3;
+
+figure;
+plot(t3,tono3);
+title('Generated Signal 3');
 
 %%
  
