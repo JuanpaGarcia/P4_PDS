@@ -336,16 +336,33 @@ tono3 = new_sorrounding_3 .* generated_s3;
 figure;
 plot(t3,tono3);
 title('Generated Signal 3');
+
+
+%generar la envolvente por interpolar
+f = array_length/((1/f4) * (length(string4_xn)-1));
+t_sorround = 0:1/f: ( (1/f)* (array_length-1) );
+
+new_sorrounding_4 = interp1(t_sorround,positive_sorrounding_signal_4,t4);
 %%
 %Generacion de array para la k64
 tono1_k64 = array_for_kinetis(tono1);
 figure;plot(tono1_k64);title('Tono1 en k64');
+%exportar la tabla a un archivo con comas
+T1 = table(tono1_k64);
+writetable(T1,'tabledata1.txt');
 
 tono1_k64 = array_for_kinetis(tono2);
 figure;plot(tono1_k64);title('Tono2 en k64');
+%exportar la tabla a un archivo con comas
+
+sorrounding_k64 = array_for_kinetis(new_sorrounding_4);
+writematrix(sorrounding_k64,'tabledata2.txt');
 
 tono1_k64 = array_for_kinetis(tono3);
 figure;plot(tono1_k64);title('Tono3 en k64');
+%exportar la tabla a un archivo con comas
+
+
 
 %%
 %%
@@ -397,7 +414,7 @@ figure;plot(tono1_k64);title('Tono3 en k64');
    a = abs(min(signal));
    b = max(signal);
      for s=1 : length(signal)
-         y(s) = ((signal(s) + a)/(b+a))*4095;
+         y(s) = round(((signal(s) + a)/(b+a))*4095);
      end
  end
  
