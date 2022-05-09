@@ -14,35 +14,35 @@ close all;
 %%
 %display singals in time domain
 
-figure;
-t1 = 0:(1/f1):((1/f1) * (length(string1_xn)-1));
-plot(t1,string1_xn);
-xlim([0 ((1/f1) *length(string1_xn))]);
-title('Señal string1m en el tiempo');
-
-figure;
-t2 = 0:(1/f2):((1/f2) * (length(string2_xn)-1));
-plot(t2,string2_xn);
-xlim([0 ((1/f2) *length(string2_xn))]);
-title('Señal string2m en el tiempo');
-
-figure;
-t3 = 0:(1/f3):((1/f3) * (length(string3_xn)-1));
-plot(t3,string3_xn);
-xlim([0 ((1/f3) *length(string3_xn))]);
-title('Señal string3m en el tiempo');
-
-figure;
-t4 = 0:(1/f4):((1/f4) * (length(string4_xn)-1));
-plot(t4,string4_xn);
-xlim([0 ((1/f4) *length(string4_xn))]);
-title('Señal string4m en el tiempo');
-
-figure;
-t5 = 0:(1/f5):((1/f5) * (length(string5_xn)-1));
-plot(t5,string5_xn);
-xlim([0 ((1/f5) *length(string5_xn))]);
-title('Señal string5m en el tiempo');
+% figure;
+ t1 = 0:(1/f1):((1/f1) * (length(string1_xn)-1));
+% plot(t1,string1_xn);
+% xlim([0 ((1/f1) *length(string1_xn))]);
+% title('Señal string1m en el tiempo');
+% 
+% figure;
+ t2 = 0:(1/f2):((1/f2) * (length(string2_xn)-1));
+% plot(t2,string2_xn);
+% xlim([0 ((1/f2) *length(string2_xn))]);
+% title('Señal string2m en el tiempo');
+% 
+% figure;
+ t3 = 0:(1/f3):((1/f3) * (length(string3_xn)-1));
+% plot(t3,string3_xn);
+% xlim([0 ((1/f3) *length(string3_xn))]);
+% title('Señal string3m en el tiempo');
+% 
+% figure;
+ t4 = 0:(1/f4):((1/f4) * (length(string4_xn)-1));
+% plot(t4,string4_xn);
+% xlim([0 ((1/f4) *length(string4_xn))]);
+% title('Señal string4m en el tiempo');
+% 
+% figure;
+ t5 = 0:(1/f5):((1/f5) * (length(string5_xn)-1));
+% plot(t5,string5_xn);
+% xlim([0 ((1/f5) *length(string5_xn))]);
+% title('Señal string5m en el tiempo');
 %%
 %%Parte de Abstraer una serie de puntos de un alto valor en la señal
 
@@ -336,7 +336,18 @@ tono3 = new_sorrounding_3 .* generated_s3;
 figure;
 plot(t3,tono3);
 title('Generated Signal 3');
+%%
+%Generacion de array para la k64
+tono1_k64 = array_for_kinetis(tono1);
+figure;plot(tono1_k64);title('Tono1 en k64');
 
+tono1_k64 = array_for_kinetis(tono2);
+figure;plot(tono1_k64);title('Tono2 en k64');
+
+tono1_k64 = array_for_kinetis(tono3);
+figure;plot(tono1_k64);title('Tono3 en k64');
+
+%%
 %%
  
  function y = positive_wave(x_n_signal)
@@ -380,7 +391,15 @@ title('Generated Signal 3');
 %  end
 
 
- 
+  function y = array_for_kinetis(signal)
+ % generar un array para poder pasarlo a la k64
+   %y = zeros(1,length(signal));
+   a = abs(min(signal));
+   b = max(signal);
+     for s=1 : length(signal)
+         y(s) = ((signal(s) + a)/(b+a))*4095;
+     end
+ end
  
  
  
