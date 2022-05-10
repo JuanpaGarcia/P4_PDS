@@ -21,8 +21,8 @@
 #define DEMO_ADC16_CHANNEL_GROUP 0U		//Seleccionar el canal
 #define DEMO_ADC16_USER_CHANNEL  12U
 
-#define DELAY_TIME 0.000090579f	// periodo de muestreo
-#define SYSTEM_CLOCK (21000000U)	//reloj de la k64
+#define DELAY_TIME 0.000090579f	// periodo de muestreo 11025z
+#define SYSTEM_CLOCK (120000000U)	//reloj de la k64
 
 #define MCG_IRCLK_DISABLE 0U                   /*!< MCGIRCLK disabled */
 #define MCG_PLL_DISABLE 0U                     /*!< MCGPLLCLK disabled */
@@ -72,14 +72,18 @@ int main(void) {
 
 
     PIT_delay(PIT_0, SYSTEM_CLOCK, DELAY_TIME);// EMPEZAMOS LA FREQ DE MUESTREO
-
+    uint16_t value = 0;
     while(1) {
 
     	//ADC16_SetChannelConfig(DEMO_ADC16_BASE, DEMO_ADC16_CHANNEL_GROUP, &adc16ChannelConfigStruct);
     	if(PIT_get_interrupt_flag_status()){
 
-    		uint16_t value = get_note();
+    		value = get_note();
+
+
     		DAC_SetBufferValue(DAC0, 0U, value);
+
+
 
 			PIT_clear_interrupt_flag();			//LIMPIAMOS BANDERA DE INTERRUPCIÓN
     		}
