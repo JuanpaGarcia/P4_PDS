@@ -362,7 +362,7 @@ tono1_k64 = array_for_kinetis(tono3);
 figure;plot(tono1_k64);title('Tono3 en k64');
 %exportar la tabla a un archivo con comas
 
-
+a = 0:1:3;
 
 %%
 %%
