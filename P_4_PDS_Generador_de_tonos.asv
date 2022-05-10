@@ -348,6 +348,18 @@ generated_s4 = generated_s4+ 0.217322298*sin(2*pi*753.629*t4) + 0.075812537*sin(
 generated_s4 = generated_s4+ 0.055814471*sin(2*pi*1323.97*t4);
 
 new_sorrounding_4 = interp1(t_sorround,positive_sorrounding_signal_4,t4);
+
+tono4 = new_sorrounding_4 .* generated_s4;
+
+%tono 5
+f = array_length/((1/f5) * (length(string5_xn)-1));
+t_sorround = 0:1/f: ( (1/f)* (array_length-1) );
+
+generated_s5 = sin(2*pi*147.577*t5) + 0.67972375*sin(2*pi*73.6036*t5) + 0.225469542*sin(2*pi*221.365*t5) + 0.112433453*sin(2*pi*442.916*t5) + 0.107016072*sin(2*pi*517.074*t5) + 0.103521487*sin(2*pi*591.233*t5) + 0.077265102*sin(2*pi*665.576*t5);
+new_sorrounding_5 = interp1(t_sorround,positive_sorrounding_signal_5,t5);
+
+tono5 = new_sorrounding_5 .* generated_s5;
+
 %%
 
 %Generacion de array para la k64
@@ -361,25 +373,55 @@ tono1_k64 = array_for_kinetis(tono2);
 figure;plot(tono1_k64);title('Tono2 en k64');
 %exportar la tabla a un archivo con comas
 
-sorrounding_k64 = array_for_kinetis(new_sorrounding_4);
-writematrix(sorrounding_k64,'tabledata2.txt');
+sorrounding_k64 = array_for_kinetis(tono4);
+writematrix(sorrounding_k64,'tono4.txt');
 
-tono1_k64 = array_for_kinetis(tono3);
+tono4_k64 = array_for_kinetis(tono3);
 figure;plot(tono1_k64);title('Tono3 en k64');
 %exportar la tabla a un archivo con comas
+sound(tono4,f4)
 
+%%
+%Pasar arreglos de la nota a la k64
 
-for s=1 : (length(generated_s3))
-    aa(s) = (generated_s3(s))/(max(generated_s3)*2);
-end
+%definir nuevas notas musicales con las frecuencias de la tabla 
+%Necesitamos Notas de Do a La en la segunda octava
+%Do a 130.8 hz
+Do_f = sin(130.8*2*pi*t4);
+nota_Do = new_sorrounding_4 .* Do_f;
+Do_k6 = array_for_kinetis(nota_Do);
+writematrix(Do_k6,'Do.txt');
 
-sorrounding2_k64 = array_for_kinetis(new_sorrounding_3);
+%Re a 146.8 hz
+Re_f = sin(146.8*2*pi*t4);
+nota_Re = new_sorrounding_4 .* Re_f;
+Re_k6 = array_for_kinetis(nota_Re);
+writematrix(Re_k6,'Re.txt');
 
-for s=1 : (length(generated_s3))
-    ttotal(s) = aa(s)*
-end
+%Mi a 164.8Hz
+Mi_f = sin(164.8*2*pi*t4);
+nota_Mi = new_sorrounding_4 .* Mi_f;
+Mi_k6 = array_for_kinetis(nota_Mi);
+writematrix(Mi_k6,'Mi.txt');
 
-figure;plot(ttotal);title('comparativa');
+%Fa a 174.6Hz
+Fa_f = sin(174.6*2*pi*t4);
+nota_Fa = new_sorrounding_4 .* Fa_f;
+Fa_k6 = array_for_kinetis(nota_Fa);
+writematrix(Do_k6,'Do.txt');
+
+%Sol a 196.0Hz
+Sol_f = sin(196.0*2*pi*t4);
+nota_Sol = new_sorrounding_4 .* Sol_f;
+Sol_k6 = array_for_kinetis(nota_Sol);
+writematrix(Sol_k6,'Sol.txt');
+
+%La a 220.0Hz
+La_f = sin(196.0*2*pi*t4);
+nota_La = new_sorrounding_4 .* La_f;
+La_k6 = array_for_kinetis(nota_La);
+writematrix(Do_k6,'Do.txt');
+
 
 %%
 %%
