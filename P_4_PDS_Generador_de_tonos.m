@@ -316,7 +316,7 @@ title('Generated Signal 2');
 % Para la tercera onda 
 %Usar 6 ondas senoidales de frecuecuencias
 
-	 = sin(2*pi*134.553*t3) + 0.568135947*sin(2*pi*269.106*t3) + 0.509614153*sin(2*pi*404.038*t3); 
+generated_s3 = sin(2*pi*134.553*t3) + 0.568135947*sin(2*pi*269.106*t3) + 0.509614153*sin(2*pi*404.038*t3); 
 generated_s3 = generated_s3 + 0.473060678*sin(2*pi*809.402*t3) + 0.225704201*sin(2*pi*945.092*t3) ;
 generated_s3 = generated_s3 + 0.220656893*sin(2*pi*1081.35*t3) + 0.339939843*sin(2*pi*1217.99*t3) ;
 generated_s3 = generated_s3 + 0.315972393*sin(2*pi*1492.02*t3) + 0.135849521*sin(2*pi*2186.96*t3) ;
@@ -342,8 +342,16 @@ title('Generated Signal 3');
 f = array_length/((1/f4) * (length(string4_xn)-1));
 t_sorround = 0:1/f: ( (1/f)* (array_length-1) );
 
+generated_s4 = sin(2*pi*188.054*t4) + 0.79528063*sin(2*pi*93.8508*t4) + 0.677630306*sin(2*pi*282.258*t4); 
+generated_s4 = generated_s4+ 0.154728201*sin(2*pi*376.462*t4) + 0.332296266*sin(2*pi*564.869*t4) + 0.179476504*sin(2*pi*659.073*t4); 
+generated_s4 = generated_s4+ 0.217322298*sin(2*pi*753.629*t4) + 0.075812537*sin(2*pi*848.362*t4) +  0.066664395*sin(2*pi*1133.44*t4); 
+generated_s4 = generated_s4+ 0.055814471*sin(2*pi*1323.97*t4);
+
 new_sorrounding_4 = interp1(t_sorround,positive_sorrounding_signal_4,t4);
+
+tono4 = new_sorrounding_4 .* generated_s4;
 %%
+
 %Generacion de array para la k64
 tono1_k64 = array_for_kinetis(tono1);
 figure;plot(tono1_k64);title('Tono1 en k64');
@@ -355,14 +363,14 @@ tono1_k64 = array_for_kinetis(tono2);
 figure;plot(tono1_k64);title('Tono2 en k64');
 %exportar la tabla a un archivo con comas
 
-sorrounding_k64 = array_for_kinetis(new_sorrounding_4);
-writematrix(sorrounding_k64,'tabledata2.txt');
+sorrounding_k64 = array_for_kinetis(tono4);
+writematrix(sorrounding_k64,'tono4.txt');
 
-tono1_k64 = array_for_kinetis(tono3);
+tono4_k64 = array_for_kinetis(tono3);
 figure;plot(tono1_k64);title('Tono3 en k64');
 %exportar la tabla a un archivo con comas
+sound(tono4,f4)
 
-a = 0:1:3;
 
 %%
 %%
@@ -413,7 +421,7 @@ a = 0:1:3;
    %y = zeros(1,length(signal));
    a = abs(min(signal));
    b = max(signal);
-     for s=1 : length(signal)
+     for s=1 : (length(signal))
          y(s) = round(((signal(s) + a)/(b+a))*4095);
      end
  end
