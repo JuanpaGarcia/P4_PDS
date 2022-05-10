@@ -316,7 +316,7 @@ title('Generated Signal 2');
 % Para la tercera onda 
 %Usar 6 ondas senoidales de frecuecuencias
 
-generated_s3 = sin(2*pi*134.553*t3) + 0.568135947*sin(2*pi*269.106*t3) + 0.509614153*sin(2*pi*404.038*t3); 
+	 = sin(2*pi*134.553*t3) + 0.568135947*sin(2*pi*269.106*t3) + 0.509614153*sin(2*pi*404.038*t3); 
 generated_s3 = generated_s3 + 0.473060678*sin(2*pi*809.402*t3) + 0.225704201*sin(2*pi*945.092*t3) ;
 generated_s3 = generated_s3 + 0.220656893*sin(2*pi*1081.35*t3) + 0.339939843*sin(2*pi*1217.99*t3) ;
 generated_s3 = generated_s3 + 0.315972393*sin(2*pi*1492.02*t3) + 0.135849521*sin(2*pi*2186.96*t3) ;
