@@ -13,14 +13,12 @@
 #include "GPIO.h"
 
 static volatile gpio_interrupt_flags_t g_intr_status_flag = {0};
-static void (*gpio_C_callback)(int *volume) = 0;
-static void (*gpio_A_callback)(int *volume) = 0;
+static void (*gpio_C_callback)(void) = 0;
+static void (*gpio_A_callback)(void) = 0;
 static void (*gpio_B_callback)(void) = 0;
-static int *volume_h;
 
-void GPIO_callback_init(gpio_port_name_t port_name, void (*handler)(int*), int * volume)
+void GPIO_callback_init(gpio_port_name_t port_name, void (*handler)(void))
 {
-	volume_h = volume;
 	if(GPIO_A == port_name)
 	{
 		gpio_A_callback = handler;
@@ -35,7 +33,7 @@ void PORTC_IRQHandler(void)
 {
 	if(gpio_C_callback)
 	{
-		gpio_C_callback(volume_h);
+		gpio_C_callback();
 	}
 	g_intr_status_flag.flag_port_c = TRUE;
 	GPIO_clear_interrupt(GPIO_C);
@@ -55,7 +53,7 @@ void PORTA_IRQHandler(void)
 {
 	if(gpio_A_callback)
 	{
-		gpio_A_callback(volume_h);
+		gpio_A_callback();
 	}
 	g_intr_status_flag.flag_port_a = TRUE;
 	GPIO_clear_interrupt(GPIO_A);
@@ -365,16 +363,5 @@ void GPIO_toogle_pin(gpio_port_name_t port_name, uint8_t pin)
 		}
 }
 
-void GPIO_write_port(gpio_port_name_t port_name, uint32_t data);
-uint32_t GPIO_read_port(gpio_port_name_t port_name);
-uint8_t GPIO_read_pin(gpio_port_name_t port_name, uint8_t pin);
-void GPIO_set_pin(gpio_port_name_t port_name, uint8_t pin);
-void GPIO_clear_pin(gpio_port_name_t port_name, uint8_t pin);
-void GPIO_toogle_pin(gpio_port_name_t port_name, uint8_t pin);
-void GPIO_data_direction_port(gpio_port_name_t port_name ,uint32_t direction);
-void GPIO_data_direction_pin(gpio_port_name_t port_name, uint8_t state, uint8_t pin);
-void GPIO_callback_init(gpio_port_name_t port_name, void (*handler)(int *volume), int * volume);
-void GPIO_clear_irq_status(gpio_port_name_t gpio);
-uint8_t GPIO_get_irq_status(gpio_port_name_t gpio);
-void GPIO_clear_interrupt(gpio_port_name_t port_name);
+
 

@@ -64,28 +64,14 @@ void init()
 	GPIO_clock_gating(GPIO_C);//VOLUMEN SW2
 	GPIO_clock_gating(GPIO_E);
 
-	gpio_pin_control_register_t pcr_gpioe_pin_led = GPIO_MUX1;
-	gpio_pin_control_register_t pcr_gpiob_pin_led = GPIO_MUX1;
-
-	GPIO_pin_control_register(GPIO_B,bit_21,&pcr_gpiob_pin_led);
-	GPIO_pin_control_register(GPIO_B,bit_22,&pcr_gpiob_pin_led);
-	GPIO_pin_control_register(GPIO_E,bit_26,&pcr_gpioe_pin_led);
 
 	GPIO_pin_control_register(GPIO_A,bit_4, &input_intr_config);
 	GPIO_pin_control_register(GPIO_C,bit_6, &input_intr_config);
 
-	GPIO_pin_control_register(GPIO_B, bit_3,&input_intr_config_dp_sw);
-	GPIO_pin_control_register(GPIO_B, bit_10,&input_intr_config_dp_sw);
 
 	GPIO_data_direction_pin(GPIO_C, GPIO_INPUT, bit_6);
 	GPIO_data_direction_pin(GPIO_A, GPIO_INPUT, bit_4);
 
-	GPIO_data_direction_pin(GPIO_B, GPIO_INPUT, bit_3);
-	GPIO_data_direction_pin(GPIO_B, GPIO_INPUT, bit_10);
-	//
-	GPIO_data_direction_pin(GPIO_B, GPIO_OUTPUT, bit_21);
-	GPIO_data_direction_pin(GPIO_B, GPIO_OUTPUT, bit_22);
-	GPIO_data_direction_pin(GPIO_E, GPIO_OUTPUT, bit_26);
 
 	//
 	PIT_clock_gating();
@@ -109,6 +95,10 @@ void init_interrupt()
 	NVIC_enable_interrupt_and_priotity(PORTB_IRQ, PRIORITY_5);
 
 	NVIC_global_enable_interrupts;
+
+	GPIO_callback_init(GPIO_A,play_tone);
+	GPIO_callback_init(GPIO_C,play_song);
+	//intento new
 }
 
 void play_tone(void)
@@ -128,7 +118,7 @@ void play_tone(void)
 
 		counter++;
 		}
-	   	if(counter <= time_up) break;
+	   	if(counter >= time_up) break;
 	}
 	DAC_SetBufferValue(DAC0, 0U, value);
 }
@@ -151,7 +141,7 @@ void play_song(void)
 
 		counter++;
 		}
-	   	if(counter <= time_up) break;
+	   	if(counter >= one_time) break;
 	}
 	DAC_SetBufferValue(DAC0, 0U, value);
 
@@ -170,7 +160,7 @@ void play_song(void)
 
 		counter++;
 		}
-	   	if(counter <= time_up) break;
+	   	if(counter >= one_time) break;
 	}
 	DAC_SetBufferValue(DAC0, 0U, value);
 
@@ -188,7 +178,7 @@ void play_song(void)
 
 		counter++;
 		}
-	   	if(counter <= time_up) break;
+	   	if(counter >= one_time) break;
 	}
 	DAC_SetBufferValue(DAC0, 0U, value);
 
@@ -207,7 +197,7 @@ void play_song(void)
 
 		counter++;
 		}
-	   	if(counter <= time_up) break;
+	   	if(counter >= one_time) break;
 	}
 	DAC_SetBufferValue(DAC0, 0U, value);
 
@@ -225,7 +215,7 @@ void play_song(void)
 
 		counter++;
 		}
-	   	if(counter <= time_up) break;
+	   	if(counter >= one_time) break;
 	}
 	DAC_SetBufferValue(DAC0, 0U, value);
 
@@ -243,7 +233,7 @@ void play_song(void)
 
 		counter++;
 		}
-	   	if(counter <= time_up) break;
+	   	if(counter >= one_time) break;
 	}
 	DAC_SetBufferValue(DAC0, 0U, value);
 
@@ -261,7 +251,7 @@ void play_song(void)
 
 		counter++;
 		}
-	   	if(counter <= time_up) break;
+	   	if(counter >= two_times) break;
 	}
 	DAC_SetBufferValue(DAC0, 0U, value);
 
@@ -279,7 +269,7 @@ void play_song(void)
 
 		counter++;
 		}
-	   	if(counter <= time_up) break;
+	   	if(counter >= one_time) break;
 	}
 	DAC_SetBufferValue(DAC0, 0U, value);
 
@@ -297,7 +287,7 @@ void play_song(void)
 
 		counter++;
 		}
-	   	if(counter <= time_up) break;
+	   	if(counter >= one_time) break;
 	}
 	DAC_SetBufferValue(DAC0, 0U, value);
 
@@ -315,7 +305,7 @@ void play_song(void)
 
 		counter++;
 		}
-	   	if(counter <= time_up) break;
+	   	if(counter >= one_time) break;
 	}
 	DAC_SetBufferValue(DAC0, 0U, value);
 
@@ -333,7 +323,7 @@ void play_song(void)
 
 		counter++;
 		}
-	   	if(counter <= time_up) break;
+	   	if(counter >= one_time) break;
 	}
 	DAC_SetBufferValue(DAC0, 0U, value);
 
@@ -351,7 +341,7 @@ void play_song(void)
 
 		counter++;
 		}
-	   	if(counter <= time_up) break;
+	   	if(counter >= one_time) break;
 	}
 	DAC_SetBufferValue(DAC0, 0U, value);
 
@@ -369,7 +359,7 @@ void play_song(void)
 
 		counter++;
 		}
-	   	if(counter <= time_up) break;
+	   	if(counter >= one_time) break;
 	}
 	DAC_SetBufferValue(DAC0, 0U, value);
 
@@ -387,7 +377,7 @@ void play_song(void)
 
 		counter++;
 		}
-	   	if(counter <= time_up) break;
+	   	if(counter >= two_times) break;
 	}
 	DAC_SetBufferValue(DAC0, 0U, value);
 
@@ -408,7 +398,7 @@ void play_song(void)
 	   	if(PIT_get_interrupt_flag_status())
 	   	{
 
-		value = Mi(counter);
+		value = Sol(counter);
 
 		DAC_SetBufferValue(DAC0, 0U, value);
 
@@ -416,7 +406,25 @@ void play_song(void)
 
 		counter++;
 		}
-	   	if(counter <= time_up) break;
+	   	if(counter >= one_time) break;
+	}
+	DAC_SetBufferValue(DAC0, 0U, value);
+
+	counter = 0;
+	while(1)
+	{
+	   	if(PIT_get_interrupt_flag_status())
+	   	{
+
+		value = Sol(counter);
+
+		DAC_SetBufferValue(DAC0, 0U, value);
+
+		PIT_clear_interrupt_flag();			//LIMPIAMOS BANDERA DE INTERRUPCIÓN
+
+		counter++;
+		}
+	   	if(counter >= one_time) break;
 	}
 	DAC_SetBufferValue(DAC0, 0U, value);
 
@@ -435,7 +443,83 @@ void play_song(void)
 
 		counter++;
 		}
-	   	if(counter <= time_up) break;
+	   	if(counter >= one_time) break;
+	}
+	DAC_SetBufferValue(DAC0, 0U, value);
+
+
+	counter = 0;
+	while(1)
+	{
+	   	if(PIT_get_interrupt_flag_status())
+	   	{
+
+		value = Fa(counter);
+
+		DAC_SetBufferValue(DAC0, 0U, value);
+
+		PIT_clear_interrupt_flag();			//LIMPIAMOS BANDERA DE INTERRUPCIÓN
+
+		counter++;
+		}
+	   	if(counter >= one_time) break;
+	}
+	DAC_SetBufferValue(DAC0, 0U, value);
+
+
+	counter = 0;
+	while(1)
+	{
+	   	if(PIT_get_interrupt_flag_status())
+	   	{
+
+		value = Mi(counter);
+
+		DAC_SetBufferValue(DAC0, 0U, value);
+
+		PIT_clear_interrupt_flag();			//LIMPIAMOS BANDERA DE INTERRUPCIÓN
+
+		counter++;
+		}
+	   	if(counter >= one_time) break;
+	}
+	DAC_SetBufferValue(DAC0, 0U, value);
+
+
+	counter = 0;
+	while(1)
+	{
+	   	if(PIT_get_interrupt_flag_status())
+	   	{
+
+		value = Mi(counter);
+
+		DAC_SetBufferValue(DAC0, 0U, value);
+
+		PIT_clear_interrupt_flag();			//LIMPIAMOS BANDERA DE INTERRUPCIÓN
+
+		counter++;
+		}
+	   	if(counter >= one_time) break;
+	}
+	DAC_SetBufferValue(DAC0, 0U, value);
+
+
+	counter = 0;
+	while(1)
+	{
+	   	if(PIT_get_interrupt_flag_status())
+	   	{
+
+		value = Re(counter);
+
+		DAC_SetBufferValue(DAC0, 0U, value);
+
+		PIT_clear_interrupt_flag();			//LIMPIAMOS BANDERA DE INTERRUPCIÓN
+
+		counter++;
+		}
+	   	if(counter >= two_times) break;
 	}
 	DAC_SetBufferValue(DAC0, 0U, value);
 
@@ -454,10 +538,209 @@ void play_song(void)
 
 		counter++;
 		}
-	   	if(counter <= time_up) break;
+	   	if(counter >= one_time) break;
 	}
 	DAC_SetBufferValue(DAC0, 0U, value);
 
+	counter = 0;
+	while(1)
+	{
+	   	if(PIT_get_interrupt_flag_status())
+	   	{
+
+		value = Sol(counter);
+
+		DAC_SetBufferValue(DAC0, 0U, value);
+
+		PIT_clear_interrupt_flag();			//LIMPIAMOS BANDERA DE INTERRUPCIÓN
+
+		counter++;
+		}
+	   	if(counter >= one_time) break;
+	}
+	DAC_SetBufferValue(DAC0, 0U, value);
+
+
+	counter = 0;
+	while(1)
+	{
+	   	if(PIT_get_interrupt_flag_status())
+	   	{
+
+		value = Fa(counter);
+
+		DAC_SetBufferValue(DAC0, 0U, value);
+
+		PIT_clear_interrupt_flag();			//LIMPIAMOS BANDERA DE INTERRUPCIÓN
+
+		counter++;
+		}
+	   	if(counter >= one_time) break;
+	}
+	DAC_SetBufferValue(DAC0, 0U, value);
+
+
+	counter = 0;
+	while(1)
+	{
+	   	if(PIT_get_interrupt_flag_status())
+	   	{
+
+		value = Fa(counter);
+
+		DAC_SetBufferValue(DAC0, 0U, value);
+
+		PIT_clear_interrupt_flag();			//LIMPIAMOS BANDERA DE INTERRUPCIÓN
+
+		counter++;
+		}
+	   	if(counter >= one_time) break;
+	}
+	DAC_SetBufferValue(DAC0, 0U, value);
+
+
+	counter = 0;
+	while(1)
+	{
+	   	if(PIT_get_interrupt_flag_status())
+	   	{
+
+		value = Mi(counter);
+
+		DAC_SetBufferValue(DAC0, 0U, value);
+
+		PIT_clear_interrupt_flag();			//LIMPIAMOS BANDERA DE INTERRUPCIÓN
+
+		counter++;
+		}
+	   	if(counter >= one_time) break;
+	}
+	DAC_SetBufferValue(DAC0, 0U, value);
+
+
+	counter = 0;
+	while(1)
+	{
+	   	if(PIT_get_interrupt_flag_status())
+	   	{
+
+		value = Mi(counter);
+
+		DAC_SetBufferValue(DAC0, 0U, value);
+
+		PIT_clear_interrupt_flag();			//LIMPIAMOS BANDERA DE INTERRUPCIÓN
+
+		counter++;
+		}
+	   	if(counter >= one_time) break;
+	}
+	DAC_SetBufferValue(DAC0, 0U, value);
+
+
+	counter = 0;
+	while(1)
+	{
+	   	if(PIT_get_interrupt_flag_status())
+	   	{
+
+		value = Re(counter);
+
+		DAC_SetBufferValue(DAC0, 0U, value);
+
+		PIT_clear_interrupt_flag();			//LIMPIAMOS BANDERA DE INTERRUPCIÓN
+
+		counter++;
+		}
+	   	if(counter >= two_times) break;
+	}
+	DAC_SetBufferValue(DAC0, 0U, value);
+
+
+
+	////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////
+	//////////////////////// Segunda parte//////////////////////
+	////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////
+
+
+	while(1)
+	{
+	   	if(PIT_get_interrupt_flag_status())
+	   	{
+
+		value = Do(counter);
+
+		DAC_SetBufferValue(DAC0, 0U, value);
+
+		PIT_clear_interrupt_flag();			//LIMPIAMOS BANDERA DE INTERRUPCIÓN
+
+		counter++;
+		}
+	   	if(counter >= one_time) break;
+	}
+	DAC_SetBufferValue(DAC0, 0U, value);
+
+
+	counter = 0;
+	while(1)
+	{
+	   	if(PIT_get_interrupt_flag_status())
+	   	{
+
+		value = Do(counter);
+
+		DAC_SetBufferValue(DAC0, 0U, value);
+
+		PIT_clear_interrupt_flag();			//LIMPIAMOS BANDERA DE INTERRUPCIÓN
+
+		counter++;
+		}
+	   	if(counter >= one_time) break;
+	}
+	DAC_SetBufferValue(DAC0, 0U, value);
+
+	counter = 0;
+	while(1)
+	{
+	   	if(PIT_get_interrupt_flag_status())
+	   	{
+
+		value = Sol(counter);
+
+		DAC_SetBufferValue(DAC0, 0U, value);
+
+		PIT_clear_interrupt_flag();			//LIMPIAMOS BANDERA DE INTERRUPCIÓN
+
+		counter++;
+		}
+	   	if(counter >= one_time) break;
+	}
+	DAC_SetBufferValue(DAC0, 0U, value);
+
+
+	counter = 0;
+	while(1)
+	{
+	   	if(PIT_get_interrupt_flag_status())
+	   	{
+
+		value = Sol(counter);
+
+		DAC_SetBufferValue(DAC0, 0U, value);
+
+		PIT_clear_interrupt_flag();			//LIMPIAMOS BANDERA DE INTERRUPCIÓN
+
+		counter++;
+		}
+	   	if(counter >= one_time) break;
+	}
+	DAC_SetBufferValue(DAC0, 0U, value);
 
 	counter = 0;
 	while(1)
@@ -473,9 +756,172 @@ void play_song(void)
 
 		counter++;
 		}
-	   	if(counter <= time_up) break;
+	   	if(counter >= one_time) break;
 	}
 	DAC_SetBufferValue(DAC0, 0U, value);
+
+	counter = 0;
+	while(1)
+	{
+	   	if(PIT_get_interrupt_flag_status())
+	   	{
+
+		value = La(counter);
+
+		DAC_SetBufferValue(DAC0, 0U, value);
+
+		PIT_clear_interrupt_flag();			//LIMPIAMOS BANDERA DE INTERRUPCIÓN
+
+		counter++;
+		}
+	   	if(counter >= one_time) break;
+	}
+	DAC_SetBufferValue(DAC0, 0U, value);
+
+	counter = 0;
+	while(1)
+	{
+	   	if(PIT_get_interrupt_flag_status())
+	   	{
+
+		value = Sol(counter);
+
+		DAC_SetBufferValue(DAC0, 0U, value);
+
+		PIT_clear_interrupt_flag();			//LIMPIAMOS BANDERA DE INTERRUPCIÓN
+
+		counter++;
+		}
+	   	if(counter >= two_times) break;
+	}
+	DAC_SetBufferValue(DAC0, 0U, value);
+
+	counter = 0;
+	while(1)
+	{
+	   	if(PIT_get_interrupt_flag_status())
+	   	{
+
+		value = Fa(counter);
+
+		DAC_SetBufferValue(DAC0, 0U, value);
+
+		PIT_clear_interrupt_flag();			//LIMPIAMOS BANDERA DE INTERRUPCIÓN
+
+		counter++;
+		}
+	   	if(counter >= one_time) break;
+	}
+	DAC_SetBufferValue(DAC0, 0U, value);
+
+	counter = 0;
+	while(1)
+	{
+	   	if(PIT_get_interrupt_flag_status())
+	   	{
+
+		value = Fa(counter);
+
+		DAC_SetBufferValue(DAC0, 0U, value);
+
+		PIT_clear_interrupt_flag();			//LIMPIAMOS BANDERA DE INTERRUPCIÓN
+
+		counter++;
+		}
+	   	if(counter >= one_time) break;
+	}
+	DAC_SetBufferValue(DAC0, 0U, value);
+
+	counter = 0;
+	while(1)
+	{
+	   	if(PIT_get_interrupt_flag_status())
+	   	{
+
+		value = Sol(counter);
+
+		DAC_SetBufferValue(DAC0, 0U, value);
+
+		PIT_clear_interrupt_flag();			//LIMPIAMOS BANDERA DE INTERRUPCIÓN
+
+		counter++;
+		}
+	   	if(counter >= one_time) break;
+	}
+	DAC_SetBufferValue(DAC0, 0U, value);
+
+	counter = 0;
+	while(1)
+	{
+	   	if(PIT_get_interrupt_flag_status())
+	   	{
+
+		value = Sol(counter);
+
+		DAC_SetBufferValue(DAC0, 0U, value);
+
+		PIT_clear_interrupt_flag();			//LIMPIAMOS BANDERA DE INTERRUPCIÓN
+
+		counter++;
+		}
+	   	if(counter >= one_time) break;
+	}
+	DAC_SetBufferValue(DAC0, 0U, value);
+
+	counter = 0;
+	while(1)
+	{
+	   	if(PIT_get_interrupt_flag_status())
+	   	{
+
+		value = Re(counter);
+
+		DAC_SetBufferValue(DAC0, 0U, value);
+
+		PIT_clear_interrupt_flag();			//LIMPIAMOS BANDERA DE INTERRUPCIÓN
+
+		counter++;
+		}
+	   	if(counter >= one_time) break;
+	}
+	DAC_SetBufferValue(DAC0, 0U, value);
+
+	counter = 0;
+	while(1)
+	{
+	   	if(PIT_get_interrupt_flag_status())
+	   	{
+
+		value = Re(counter);
+
+		DAC_SetBufferValue(DAC0, 0U, value);
+
+		PIT_clear_interrupt_flag();			//LIMPIAMOS BANDERA DE INTERRUPCIÓN
+
+		counter++;
+		}
+	   	if(counter >= one_time) break;
+	}
+	DAC_SetBufferValue(DAC0, 0U, value);
+
+	counter = 0;
+	while(1)
+	{
+	   	if(PIT_get_interrupt_flag_status())
+	   	{
+
+		value = Do(counter);
+
+		DAC_SetBufferValue(DAC0, 0U, value);
+
+		PIT_clear_interrupt_flag();			//LIMPIAMOS BANDERA DE INTERRUPCIÓN
+
+		counter++;
+		}
+	   	if(counter >= two_times) break;
+	}
+	DAC_SetBufferValue(DAC0, 0U, value);
+
 
 }
 
