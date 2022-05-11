@@ -10,19 +10,24 @@
 
 #include <stdint.h>
 #include <math.h>
+#include "PIT.h"
 
 #define length_note 59300
 #define pi  3.1415926535
 
-uint16_t Do(void);
-uint16_t Re(void);
-uint16_t Mi(void);
-uint16_t Fa(void);
-uint16_t Sol(void);
-uint16_t La(void);
-uint16_t get_note(void);
+
+uint16_t Do(int32_t value);
+uint16_t Re(int32_t value);
+uint16_t Mi(int32_t value);
+uint16_t Fa(int32_t value);
+uint16_t Sol(int32_t value);
+uint16_t La(int32_t value);
+uint16_t get_note(int32_t value);
 
 #define time_up 58100
+#define one_time 14525
+#define two_times  29050
+
 #define abs_min_note 3.3870f
 #define max_note 3.3837f
 

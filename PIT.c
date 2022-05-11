@@ -30,6 +30,18 @@ void PIT0_IRQHandler(void) /* ISR PIT_0*/
 	}
 }
 
+void PIT1_IRQHandler(void) /* ISR PIT_0*/
+{
+	uint8_t dummyRead;
+	PIT->CHANNEL[1].TFLG |= PIT_TFLG_TIF_MASK;	//Aquí se limpia interrupción
+	dummyRead = PIT->CHANNEL[1].TCTRL;
+	//g_PIT1_flag = TRUE;
+	if(g_PIT_callback != 0)
+	{
+		g_PIT_callback();
+	}
+}
+
 void PIT_clock_gating(void)
 {
 	SIM->SCGC6 |= PIT_CLOCK_GATING;
