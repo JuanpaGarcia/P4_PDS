@@ -153,17 +153,6 @@ ylabel('|string1_xn(f)|');
 
 %comentar lo de la señal envolvente
 
-% fft_string1_sorrounding = fft(positive_sorrounding_signal_1,number_of_elements_in_fourier_transform);
-% length_string1_sorrounding_xn = length(positive_sorrounding_signal_1);
-% P2 = abs(fft_string1_sorrounding/length_string1_sorrounding_xn);
-% P1 = P2(1:length_string1_sorrounding_xn/2+1);
-% P1(2:end-1) = 2*P1(2:end-1);
-% nexttile
-% plot(f,P1);
-% xlim([0 4000]);
-% title('Single-Sided Amplitude Spectrum of string1_envolvente');
-% xlabel('f (Hz)');
-% ylabel('|string1_xn(f)|'); 
 
 %señal 2
 fft_string2_xn = fft(string2_xn,number_of_elements_in_fourier_transform);
@@ -386,41 +375,41 @@ sound(tono4,f4)
 
 %definir nuevas notas musicales con las frecuencias de la tabla 
 %Necesitamos Notas de Do a La en la segunda octava
-%Do a 130.8 hz
-Do_f = sin(130.8*2*pi*t4);
+Do_f = sin(130.8*2*pi*t4)+(0.79528063*(sin((1/2)*130.8*2*pi*t4))) + (0.677630306*(sin((3/2)*130.8*2*pi*t4))) + (0.154728201*(sin(2*130.8*2*pi*t4))) + (0.332296266*(sin(3*130.8*2*pi*t4))) + (0.179476504*(sin((7/2)*130.8*2*pi*t4))) + (0.217322298*(sin(4*130.8*2*pi*t4))) + (0.075812537*(sin((9/2)*130.8*2*pi*t4))) + (0.066664395*(sin((6)*130.8*2*pi*t4)))  + (0.055814471*(sin((7)*130.8*2*pi*t4)));
 nota_Do = new_sorrounding_4 .* Do_f;
 Do_k6 = array_for_kinetis(nota_Do);
 writematrix(Do_k6,'Do.txt');
 
 %Re a 146.8 hz
-Re_f = sin(146.8*2*pi*t4);
+Re_f = sin(146.8*2*pi*t4)+(0.79528063*(sin((1/2)*146.8*2*pi*t4))) + (0.677630306*(sin((3/2)*146.8*2*pi*t4))) + (0.154728201*(sin(2*146.8*2*pi*t4))) + (0.332296266*(sin(3*146.8*2*pi*t4))) + (0.179476504*(sin((7/2)*146.8*2*pi*t4))) + (0.217322298*(sin(4*146.8*2*pi*t4))) + (0.075812537*(sin((9/2)*146.8*2*pi*t4))) + (0.066664395*(sin((6)*146.8*2*pi*t4)))  + (0.055814471*(sin((7)*146.8*2*pi*t4)));
 nota_Re = new_sorrounding_4 .* Re_f;
 Re_k6 = array_for_kinetis(nota_Re);
 writematrix(Re_k6,'Re.txt');
 
 %Mi a 164.8Hz
-Mi_f = sin(164.8*2*pi*t4);
+Mi_f = sin(164.8*2*pi*t4)+(0.79528063*(sin((1/2)*164.8*2*pi*t4))) + (0.677630306*(sin((3/2)*164.8*2*pi*t4))) + (0.154728201*(sin(2*164.8*2*pi*t4))) + (0.332296266*(sin(3*164.8*2*pi*t4))) + (0.179476504*(sin((7/2)*164.8*2*pi*t4))) + (0.217322298*(sin(4*164.8*2*pi*t4))) + (0.075812537*(sin((9/2)*164.8*2*pi*t4))) + (0.066664395*(sin((6)*164.8*2*pi*t4)))  + (0.055814471*(sin((7)*164.8*2*pi*t4)));
 nota_Mi = new_sorrounding_4 .* Mi_f;
 Mi_k6 = array_for_kinetis(nota_Mi);
 writematrix(Mi_k6,'Mi.txt');
 
 %Fa a 174.6Hz
-Fa_f = sin(174.6*2*pi*t4);
+Fa_f = sin(174.6*2*pi*t4)+(0.79528063*(sin((1/2)*174.6*2*pi*t4))) + (0.677630306*(sin((3/2)*174.6*2*pi*t4))) + (0.154728201*(sin(2*174.6*2*pi*t4))) + (0.332296266*(sin(3*174.6*2*pi*t4))) + (0.179476504*(sin((7/2)*174.6*2*pi*t4))) + (0.217322298*(sin(4*174.6*2*pi*t4))) + (0.075812537*(sin((9/2)*174.6*2*pi*t4))) + (0.066664395*(sin((6)*174.6*2*pi*t4)))  + (0.055814471*(sin((7)*174.6*2*pi*t4)));
 nota_Fa = new_sorrounding_4 .* Fa_f;
 Fa_k6 = array_for_kinetis(nota_Fa);
 writematrix(Fa_k6,'Fa.txt');
 
 %Sol a 196.0Hz
-Sol_f = sin(196.0*2*pi*t4);
+Sol_f = sin(196*2*pi*t4)+(0.79528063*(sin((1/2)*196*2*pi*t4))) + (0.677630306*(sin((3/2)*196*2*pi*t4))) + (0.154728201*(sin(2*196*2*pi*t4))) + (0.332296266*(sin(3*196*2*pi*t4))) + (0.179476504*(sin((7/2)*196*2*pi*t4))) + (0.217322298*(sin(4*196*2*pi*t4))) + (0.075812537*(sin((9/2)*196*2*pi*t4))) + (0.066664395*(sin((6)*196*2*pi*t4)))  + (0.055814471*(sin((7)*196*2*pi*t4)));
 nota_Sol = new_sorrounding_4 .* Sol_f;
 Sol_k6 = array_for_kinetis(nota_Sol);
 writematrix(Sol_k6,'Sol.txt');
 
 %La a 220.0Hz
-La_f = sin(196.0*2*pi*t4);
+La_f = sin(220*2*pi*t4)+(0.79528063*(sin((1/2)*220*2*pi*t4))) + (0.677630306*(sin((3/2)*220*2*pi*t4))) + (0.154728201*(sin(2*220*2*pi*t4))) + (0.332296266*(sin(3*220*2*pi*t4))) + (0.179476504*(sin((7/2)*220*2*pi*t4))) + (0.217322298*(sin(4*220*2*pi*t4))) + (0.075812537*(sin((9/2)*220*2*pi*t4))) + (0.066664395*(sin((6)*220*2*pi*t4)))  + (0.055814471*(sin((7)*220*2*pi*t4)));
 nota_La = new_sorrounding_4 .* La_f;
 La_k6 = array_for_kinetis(nota_La);
 writematrix(La_k6,'La.txt');
+sound(nota_Re,f4)
 
 
 %%
@@ -448,23 +437,6 @@ writematrix(La_k6,'La.txt');
        y(s) = data_hold/((length(x_n_signal)-1)/number_of_elements_in_sorrounding_signal);
     end
  end
-
-%   function y = sorround_signal(x_n_signal,number_of_elements_in_sorrounding_signal)
-%  %la generamos con un promedio de ciertas muestras tomadas en un intervalo
-%  counter = 1;
-%      for s=1 : number_of_elements_in_sorrounding_signal
-%      data_hold=0;
-%        for sub_cycle=1 : ((length(x_n_signal)-1)/number_of_elements_in_sorrounding_signal)
-%            a = max(x_n_signal(counter));
-%            if a > data_hold
-%                data_hold = a;
-%            end
-%            data_hold = data_hold + x_n_signal(counter);
-%            counter = counter + 1;
-%        end
-%        y(s) = data_hold;
-%     end
-%  end
 
 
   function y = array_for_kinetis(signal)
